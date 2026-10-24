@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Política de Privacidad — Torpedo</title>
+<meta name="description" content="Política de privacidad de la extensión de Chrome Torpedo." />
+<style>
+  :root {
+    --accent: #4338ca;
+    --accent-dark: #3730a3;
+    --text: #1a1a2e;
+    --muted: #5b5b70;
+    --border: #e5e7eb;
+    --bg: #f9fafb;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    color: var(--text);
+    background: var(--bg);
+    line-height: 1.6;
+  }
+  header {
+    background: linear-gradient(135deg, var(--accent), var(--accent-dark));
+    color: #fff;
+    padding: 2.5rem 1.25rem 2rem;
+    text-align: center;
+  }
+  header .badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 56px;
+    height: 56px;
+    border-radius: 16px;
+    background: rgba(255, 255, 255, 0.15);
+    font-size: 28px;
+    margin-bottom: 0.75rem;
+  }
+  header h1 {
+    margin: 0 0 0.35rem;
+    font-size: clamp(1.5rem, 5vw, 2rem);
+  }
+  header p {
+    margin: 0;
+    opacity: 0.9;
+    font-size: 0.95rem;
+  }
+  main {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 1.75rem 1.25rem 4rem;
+  }
+  .card {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 1.5rem 1.5rem 0.25rem;
+    margin-top: 1.5rem;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+  }
+  .meta {
+    font-size: 0.85rem;
+    color: var(--muted);
+    margin-top: 1.5rem;
+  }
+  h2 {
+    font-size: 1.1rem;
+    margin: 0 0 0.5rem;
+    color: var(--accent-dark);
+  }
+  p, li { color: var(--text); font-size: 0.97rem; }
+  ul { padding-left: 1.2rem; margin-top: 0.4rem; }
+  code {
+    background: #eef2ff;
+    color: var(--accent-dark);
+    padding: 0.1em 0.4em;
+    border-radius: 5px;
+    font-size: 0.9em;
+  }
+  .contact {
+    background: #eef2ff;
+    border-radius: 12px;
+    padding: 1.25rem 1.5rem;
+    margin-top: 1.5rem;
+    text-align: center;
+  }
+  .contact a {
+    color: var(--accent-dark);
+    font-weight: 700;
+    text-decoration: none;
+    word-break: break-all;
+  }
+  .contact a:hover { text-decoration: underline; }
+  footer {
+    text-align: center;
+    color: var(--muted);
+    font-size: 0.82rem;
+    padding: 1.5rem 1.25rem 3rem;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root { --text: #e8e8ef; --muted: #a0a0b5; --border: #2a2a3a; --bg: #15151f; }
+    .card { background: #1c1c28; }
+    code { background: #262640; color: #a5b4fc; }
+    .contact { background: #1e1e3a; }
+    .contact a { color: #a5b4fc; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="badge">🚀</div>
+  <h1>Política de Privacidad — Torpedo</h1>
+  <p>Extensión de Chrome</p>
+</header>
+
+<main>
+  <p class="meta">Última actualización: 24 de octubre de 2026.</p>
+
+  <div class="card">
+    <h2>Qué es Torpedo</h2>
+    <p>Torpedo es una extensión de Chrome que ayuda a preparar contactos y mensajes para enviarlos a través de Torpedo Grátis (torpedo-gratis.org), con accesos adicionales de comunicación sobre los CRM compatibles (Cashimex, CredDireto).</p>
+  </div>
+
+  <div class="card">
+    <h2>Qué datos maneja</h2>
+    <ul>
+      <li><strong>Nombres, números de teléfono, categorías y mensajes</strong> que el propio usuario pega, escribe o que la extensión detecta en el CRM compatible (nombre y teléfono de Deudor/Garantes).</li>
+      <li><strong>Historial de contactos preparados</strong>, incluyendo si el mensaje fue copiado/entregado para enviar.</li>
+      <li><strong>Plantillas de mensaje</strong> que el usuario escribe y guarda.</li>
+      <li><strong>El link del CRM</strong> que el usuario conecta.</li>
+    </ul>
+    <p>Todos estos datos se guardan <strong>únicamente en el almacenamiento local de tu propio navegador</strong> (<code>chrome.storage</code>, provisto por Chrome para extensiones). Torpedo no tiene servidor propio, no envía estos datos a ningún servicio nuestro, y no los comparte con terceros.</p>
+  </div>
+
+  <div class="card">
+    <h2>El único dato que sale de tu dispositivo</h2>
+    <p>El <strong>número de teléfono</strong> que elegís consultar se envía, vía HTTPS, a <code>consultaoperadora.com.br</code> — un servicio público de terceros usado únicamente para detectar la operadora telefónica (Vivo/Claro/TIM/Oi) antes de abrir Torpedo. En esa consulta <strong>no se envía el nombre ni el mensaje</strong>, solo el número.</p>
+    <p>Torpedo no usa estos datos para publicidad, no los vende ni los comparte con terceros, y no los usa para ningún fin distinto de ayudarte a preparar y enviar tus propios mensajes.</p>
+  </div>
+
+  <div class="card">
+    <h2>Control sobre tus datos</h2>
+    <p>Podés en cualquier momento, desde el propio panel de la extensión:</p>
+    <ul>
+      <li>Editar o eliminar las plantillas de mensaje.</li>
+      <li>Vaciar el historial (o moverlo a la papelera y eliminarlo definitivamente desde ahí).</li>
+      <li>Cambiar o borrar el link del CRM configurado.</li>
+    </ul>
+    <p>Desinstalar la extensión elimina todos los datos guardados localmente.</p>
+  </div>
+
+  <div class="card">
+    <h2>Retención</h2>
+    <p>No hay un plazo automático de borrado — los datos se conservan hasta que vos los eliminás manualmente desde la extensión.</p>
+  </div>
+
+  <div class="card">
+    <h2>Permisos que usa la extensión</h2>
+    <p>Torpedo solicita únicamente los permisos necesarios para su función (gestión de pestañas y grupos de pestañas, almacenamiento local, y el panel lateral de Chrome), y acceso limitado a los sitios donde opera: torpedo-gratis.org, los dos CRM compatibles, y el servicio de consulta de operadora. El detalle técnico de cada permiso está disponible públicamente en el código fuente de la extensión.</p>
+  </div>
+
+  <div class="card">
+    <h2>Cambios a esta política</h2>
+    <p>Si el funcionamiento de Torpedo cambia de forma que afecte el tratamiento de datos descrito acá, esta política se actualizará y se indicará la nueva fecha arriba.</p>
+  </div>
+
+  <div class="contact">
+    <p style="margin-top:0;">Para preguntas sobre esta política o sobre el tratamiento de datos de Torpedo:</p>
+    <a href="mailto:vertexlogics69@gmail.com">vertexlogics69@gmail.com</a>
+  </div>
+</main>
+
+<footer>
+  Torpedo — Política de Privacidad
+</footer>
+
+</body>
+</html>

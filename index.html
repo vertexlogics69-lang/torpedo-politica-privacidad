@@ -94,6 +94,9 @@
     word-break: break-all;
   }
   .contact a:hover { text-decoration: underline; }
+  table { width: 100%; border-collapse: collapse; font-size: 0.88rem; margin-top: 0.75rem; }
+  th, td { text-align: left; padding: 0.5rem 0.6rem; border-bottom: 1px solid var(--border); vertical-align: top; }
+  th { color: var(--muted); font-weight: 600; font-size: 0.8rem; text-transform: uppercase; }
   footer {
     text-align: center;
     color: var(--muted);
@@ -106,6 +109,7 @@
     code { background: #262640; color: #a5b4fc; }
     .contact { background: #1e1e3a; }
     .contact a { color: #a5b4fc; }
+    th { color: #a0a0b5; }
   }
 </style>
 </head>
@@ -118,28 +122,70 @@
 </header>
 
 <main>
-  <p class="meta">Última actualización: 24 de octubre de 2026.</p>
+  <p class="meta">Última actualización: 25 de octubre de 2026.</p>
 
   <div class="card">
     <h2>Qué es Torpedo</h2>
-    <p>Torpedo es una extensión de Chrome que ayuda a preparar contactos y mensajes para enviarlos a través de Torpedo Grátis (torpedo-gratis.org), con accesos adicionales de comunicación sobre los CRM compatibles (Cashimex, CredDireto).</p>
+    <p>Torpedo es una extensión de Chrome que ayuda a preparar contactos y mensajes para enviarlos a través de Torpedo Grátis (torpedo-gratis.org), con accesos adicionales de comunicación sobre los CRM compatibles (Cashimex, CredDireto). Desde la versión 1.4, Torpedo requiere iniciar sesión con una licencia activa, administrada por nuestro Centro de Suscripciones.</p>
   </div>
 
   <div class="card">
-    <h2>Qué datos maneja</h2>
+    <h2>Datos que se guardan solo en tu navegador</h2>
     <ul>
       <li><strong>Nombres, números de teléfono, categorías y mensajes</strong> que el propio usuario pega, escribe o que la extensión detecta en el CRM compatible (nombre y teléfono de Deudor/Garantes).</li>
       <li><strong>Historial de contactos preparados</strong>, incluyendo si el mensaje fue copiado/entregado para enviar.</li>
       <li><strong>Plantillas de mensaje</strong> que el usuario escribe y guarda.</li>
       <li><strong>El link del CRM</strong> que el usuario conecta.</li>
+      <li><strong>Un identificador de sesión</strong> (token temporal, vence a las 12 horas) y <strong>un identificador de dispositivo</strong> (ver más abajo).</li>
     </ul>
-    <p>Todos estos datos se guardan <strong>únicamente en el almacenamiento local de tu propio navegador</strong> (<code>chrome.storage</code>, provisto por Chrome para extensiones). Torpedo no tiene servidor propio, no envía estos datos a ningún servicio nuestro, y no los comparte con terceros.</p>
+    <p>Todos estos datos se guardan <strong>únicamente en el almacenamiento local de tu propio navegador</strong> (<code>chrome.storage</code>, provisto por Chrome para extensiones) — nunca llegan a ningún servidor nuestro.</p>
   </div>
 
   <div class="card">
-    <h2>El único dato que sale de tu dispositivo</h2>
-    <p>El <strong>número de teléfono</strong> que elegís consultar se envía, vía HTTPS, a <code>consultaoperadora.com.br</code> — un servicio público de terceros usado únicamente para detectar la operadora telefónica (Vivo/Claro/TIM/Oi) antes de abrir Torpedo. En esa consulta <strong>no se envía el nombre ni el mensaje</strong>, solo el número.</p>
-    <p>Torpedo no usa estos datos para publicidad, no los vende ni los comparte con terceros, y no los usa para ningún fin distinto de ayudarte a preparar y enviar tus propios mensajes.</p>
+    <h2>Datos que sí salen de tu dispositivo (desde la v1.4)</h2>
+    <p>A diferencia de versiones anteriores, Torpedo ahora tiene un backend propio (para validar tu acceso) que se comunica con nuestro Centro de Suscripciones (el sistema que administra cuentas y licencias de nuestras herramientas, no solo Torpedo). Esto es lo que se envía, a quién, y para qué:</p>
+    <table>
+      <thead><tr><th>Dato</th><th>A dónde</th><th>Para qué</th><th>Cómo se gestiona</th></tr></thead>
+      <tbody>
+        <tr>
+          <td>Usuario, email y contraseña (al iniciar sesión)</td>
+          <td>Nuestro backend de Torpedo, que los reenvía al Centro de Suscripciones</td>
+          <td>Verificar que tenés una cuenta y una licencia de Torpedo activa</td>
+          <td>El backend de Torpedo nunca guarda tu contraseña — la reenvía una sola vez para la verificación y la descarta. El Centro de Suscripciones es quien administra tu cuenta de forma permanente.</td>
+        </tr>
+        <tr>
+          <td>Identificador de dispositivo (generado al azar en tu navegador, no identifica a una persona)</td>
+          <td>Centro de Suscripciones, vía nuestro backend</td>
+          <td>Si tu licencia tiene un límite de dispositivos, contar cuántos equipos distintos la están usando</td>
+          <td>Se guarda en tu navegador y, de forma permanente, en el registro de dispositivos de tu licencia en el Centro de Suscripciones — hasta que el administrador de la licencia lo libere manualmente.</td>
+        </tr>
+        <tr>
+          <td>Tipo de instalación (Chrome Web Store o carpeta sin empaquetar) e identificador interno de la extensión</td>
+          <td>Solo nuestro backend de Torpedo (nunca al Centro)</td>
+          <td>Visibilidad operativa básica sobre qué tipo de instalaciones están en uso</td>
+          <td>Nuestro backend no tiene base de datos propia — este dato solo queda en los registros temporales (logs) del servidor, nunca en una base de datos ni en un listado de usuarios.</td>
+        </tr>
+        <tr>
+          <td>Tu dirección IP, según la ve nuestro servidor</td>
+          <td>Centro de Suscripciones, vía nuestro backend</td>
+          <td>Limitar intentos repetidos de inicio de sesión fallidos</td>
+          <td>Lo gestiona el Centro de Suscripciones con su propio límite de intentos.</td>
+        </tr>
+        <tr>
+          <td>Un aviso de "esta instalación va a desinstalarse" (solo si un administrador solicitó la desinstalación de tu licencia)</td>
+          <td>Nuestro backend de Torpedo</td>
+          <td>Dejar registro de que la instalación reconoció la orden antes de desinstalarse</td>
+          <td>Solo queda en los registros temporales del servidor. No confirma que la desinstalación se haya completado.</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>El <strong>número de teléfono</strong> que elegís consultar se sigue enviando, por separado, vía HTTPS, a <code>consultaoperadora.com.br</code> — un servicio público de terceros usado únicamente para detectar la operadora telefónica (Vivo/Claro/TIM/Oi) antes de abrir Torpedo. En esa consulta <strong>no se envía el nombre ni el mensaje</strong>, solo el número — esto no cambió respecto a versiones anteriores.</p>
+    <p>Torpedo no usa ninguno de estos datos para publicidad, no los vende, y no los usa para ningún fin distinto de los descritos en esta tabla.</p>
+  </div>
+
+  <div class="card">
+    <h2>Quién administra tu licencia</h2>
+    <p>Si usás Torpedo como parte de una licencia de tu organización, un administrador puede, desde el Centro de Suscripciones: ver los dispositivos vinculados a tu licencia, revocarla, liberar un dispositivo, o solicitar que tu instalación se desinstale. Si eso pasa, Torpedo te lo muestra en pantalla con un botón explícito — nunca se desinstala ni se bloquea sin que vos veas el motivo.</p>
   </div>
 
   <div class="card">
@@ -149,18 +195,24 @@
       <li>Editar o eliminar las plantillas de mensaje.</li>
       <li>Vaciar el historial (o moverlo a la papelera y eliminarlo definitivamente desde ahí).</li>
       <li>Cambiar o borrar el link del CRM configurado.</li>
+      <li>Cerrar sesión (esto borra el identificador de sesión guardado en tu navegador).</li>
     </ul>
-    <p>Desinstalar la extensión elimina todos los datos guardados localmente.</p>
+    <p>Desinstalar la extensión elimina todos los datos guardados localmente en tu navegador (plantillas, historial, sesión). Los datos que ya haya recibido el Centro de Suscripciones (como el registro de tu dispositivo en una licencia con límite) los administra esa plataforma, no la extensión — para pedir que se eliminen, contactá al administrador de tu licencia o a nosotros (ver abajo).</p>
   </div>
 
   <div class="card">
     <h2>Retención</h2>
-    <p>No hay un plazo automático de borrado — los datos se conservan hasta que vos los eliminás manualmente desde la extensión.</p>
+    <ul>
+      <li>Datos locales (plantillas, historial, CRM): sin plazo automático, se conservan hasta que vos los eliminás manualmente.</li>
+      <li>Identificador de sesión: vence automáticamente a las 12 horas; después hay que volver a iniciar sesión.</li>
+      <li>Registros de instalación/IP en nuestro backend: son logs temporales del servidor, no una base de datos — no tenemos un plazo exacto garantizado porque depende de la retención propia de la plataforma donde corre el backend, no de un diseño nuestro.</li>
+      <li>Registro de dispositivos vinculados a tu licencia: lo conserva el Centro de Suscripciones hasta que el administrador lo libere.</li>
+    </ul>
   </div>
 
   <div class="card">
     <h2>Permisos que usa la extensión</h2>
-    <p>Torpedo solicita únicamente los permisos necesarios para su función (gestión de pestañas y grupos de pestañas, almacenamiento local, y el panel lateral de Chrome), y acceso limitado a los sitios donde opera: torpedo-gratis.org, los dos CRM compatibles, y el servicio de consulta de operadora. El detalle técnico de cada permiso está disponible públicamente en el código fuente de la extensión.</p>
+    <p>Torpedo solicita únicamente los permisos necesarios para su función (gestión de pestañas y grupos de pestañas, almacenamiento local, y el panel lateral de Chrome), y acceso limitado a los sitios donde opera: torpedo-gratis.org, los dos CRM compatibles, el servicio de consulta de operadora, y nuestro backend de inicio de sesión/licencias. El detalle técnico de cada permiso está disponible públicamente en el código fuente de la extensión.</p>
   </div>
 
   <div class="card">
